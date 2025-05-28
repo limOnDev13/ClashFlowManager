@@ -5,10 +5,21 @@ from rest_framework import serializers
 class CategorySerializer(serializers.ModelSerializer):
     """Cash flow category serializer."""
 
+    type = serializers.PrimaryKeyRelatedField(
+        queryset=models.Type.objects.all()
+    )
+
     class Meta:
         model = models.Category
-        fields = ("id", "name")
+        fields = ("id", "name", "type")
         read_only_fields = ("id",)
+        validators = [
+            serializers.UniqueTogetherValidator(
+                queryset=models.Subcategory.objects.all(),
+                fields=("name", "type"),
+                message="The type already has a category with that name.",
+            )
+        ]
 
 
 class SubcategorySerializer(serializers.ModelSerializer):
