@@ -12,9 +12,23 @@ class Category(models.Model):
         help_text="Clash flow category name",
     )
 
+    type: "Type" = models.ForeignKey(
+        "Type",
+        on_delete=models.CASCADE,
+        related_name="categories",
+        null=False,
+        help_text="Parent type",
+    )
+
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["name", "type"],
+                name="unique_category_per_type",
+            )
+        ]
 
     def __str__(self) -> str:
         return self.name
