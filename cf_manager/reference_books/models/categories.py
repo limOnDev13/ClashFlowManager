@@ -8,6 +8,7 @@ class Category(models.Model):
         max_length=30,
         null=False,
         blank=False,
+        unique=True,
         help_text="Clash flow category name",
     )
 
@@ -38,6 +39,12 @@ class Subcategory(models.Model):
 
     class Meta:
         verbose_name_plural = "Subcategories"
+        constraints = [
+            models.UniqueConstraint(
+                fields=["name", "category"],
+                name="unique_subcategory_per_category",
+            )
+        ]
 
     def __str__(self) -> str:
         return self.name
