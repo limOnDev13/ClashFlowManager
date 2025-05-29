@@ -14,7 +14,6 @@ class Status(models.Model):
     )
 
     class Meta:
-        verbose_name = "Status"
         verbose_name_plural = "Statuses"
 
     def __str__(self) -> str:

@@ -14,7 +14,6 @@ class Type(models.Model):
     )
 
     class Meta:
-        verbose_name = "Type"
         verbose_name_plural = "Types"
 
     def __str__(self) -> str:
