@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
 
     "reference_books.apps.ReferenceBooksConfig",
+    "cash_flows.apps.CashFlowsConfig",
 ]
 
 MIDDLEWARE = [
