@@ -1,3 +1,5 @@
+from datetime import date
+
 from cash_flows.models import CashFlow
 from reference_books.models import Category, Status, Subcategory, Type
 from rest_framework import serializers
@@ -28,6 +30,11 @@ class ClashFlowSerializer(serializers.ModelSerializer):
             "comment",
         )
         read_only_fields = ("id",)
+
+    def validate_creation_date(self, value: date):
+        if value is None or value > date.today():
+            return date.today()
+        return value
 
     def validate(self, data):
         """Check that the subcategory refers to the category, the category to the type."""

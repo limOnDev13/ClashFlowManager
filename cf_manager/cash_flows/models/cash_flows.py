@@ -8,10 +8,10 @@ from reference_books.models import Status, Subcategory
 class CashFlow(models.Model):
     creation_date: date = models.DateField(
         verbose_name="Creation date",
-        auto_now_add=True,
-        null=False,
-        blank=False,
-        help_text="The date when the cash flow record was created.",
+        null=True,
+        help_text="The date when the cash flow record was created. "
+        "If you do not specify a value or specify a date from the future, "
+        "the current date will be set.",
     )
     status: Status = models.ForeignKey(
         Status, on_delete=models.CASCADE, null=False
@@ -33,3 +33,12 @@ class CashFlow(models.Model):
         ordering = ("creation_date",)
         verbose_name = "Cash Flow"
         verbose_name_plural = "Cash Flows"
+
+    def save(self, *args, **kwargs):
+        if self.creation_date is None or self.creation_date > date.today():
+            self.creation_date = date.today()
+
+        super().save(*args, **kwargs)
+
+    def __str__(self) -> str:
+        return f"{self.pk} | {self.creation_date} | {self.amount} RUB"
