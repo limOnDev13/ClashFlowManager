@@ -137,3 +137,12 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
 }
+
+CACHE_TIMEOUT = int(os.getenv("DJANGO_CACHE_TIMEOUT", 300))
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv("REDIS_DEBUG_URL") if DEBUG else os.getenv("REDIS_URL"),
+        "TIMEOUT": CACHE_TIMEOUT,
+    }
+}
