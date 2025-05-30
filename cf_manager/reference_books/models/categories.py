@@ -10,6 +10,7 @@ class Category(models.Model):
         blank=False,
         unique=True,
         help_text="Clash flow category name",
+        db_index=True,
     )
 
     type: "Type" = models.ForeignKey(
@@ -41,6 +42,7 @@ class Subcategory(models.Model):
         null=False,
         blank=False,
         help_text="Clash flow subcategory name",
+        db_index=True,
     )
     category: "Category" = models.ForeignKey(
         "Category",
