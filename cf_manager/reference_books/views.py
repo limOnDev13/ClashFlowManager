@@ -29,3 +29,11 @@ class SubcategoryViewSet(ModelViewSet):
 
     queryset = models.Subcategory.objects.all()
     serializer_class = serializers.SubcategorySerializer
+
+    def get_queryset(self):
+        """Return subcategories by category_id, if category_id is query params."""
+        queryset = super().get_queryset()
+        category_id = self.request.query_params.get("category_id")
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+        return queryset
