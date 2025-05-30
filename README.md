@@ -3,6 +3,9 @@ A test assignment from the IT-Solutions company.
 
 ---
 
+## Demo
+![Demo](demo.gif)
+
 ## Description
 An application for accounting of all monetary transactions 
 (test task from IT Solutions). DDS (Cash flow) is the process of accounting, 
@@ -45,3 +48,9 @@ ___
 - Postgres
 - Docker
 - Nginx
+
+## Next steps
+In the next version, it is planned to add a smart search that will be able 
+to filter entries by a text query in free form. Also, if I have time, 
+I will try to add a semantic search for comments. With the last step, 
+I will try to combine the 2 previous steps.
