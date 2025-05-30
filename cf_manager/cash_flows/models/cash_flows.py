@@ -12,12 +12,13 @@ class CashFlow(models.Model):
         help_text="The date when the cash flow record was created. "
         "If you do not specify a value or specify a date from the future, "
         "the current date will be set.",
+        db_index=True,
     )
     status: Status = models.ForeignKey(
-        Status, on_delete=models.CASCADE, null=False
+        Status, on_delete=models.CASCADE, null=False, db_index=True,
     )
     subcategory: Subcategory = models.ForeignKey(
-        Subcategory, on_delete=models.CASCADE, null=False
+        Subcategory, on_delete=models.CASCADE, null=False, db_index=True,
     )
     amount: Decimal = models.DecimalField(
         max_digits=8,
