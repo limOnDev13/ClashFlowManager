@@ -18,7 +18,7 @@ To fill the database, you can upload a fixture /cf_manager/fixture.json.
 If you are using docker compose, you can log into the container terminal 
 with the django application (```docker compose exec -ti app /bin/sh```), 
 activate the virtual environment (```. .venv/bin/activate```), 
-and execute the command (```python ./cf_manager/manage.py loaddata fixture.json```).
+and execute the command (```python ./cf_manager/manage.py loaddata ./cf_manager/fixture.json```).
 After that, you can log in to the admin panel with 
 **username: admin, password: admin, email: test@test.test**
 
