@@ -24,7 +24,7 @@ class CashFlowForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # для редактирования существующей записи ClashFlow
-        if self.instance and self.instance.subcategory:
+        if self.instance and self.instance.subcategory_id:
             self.fields["category"].initial = (
                 self.instance.subcategory.category
             )
