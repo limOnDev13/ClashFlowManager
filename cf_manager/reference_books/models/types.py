@@ -11,6 +11,7 @@ class Type(models.Model):
         blank=False,
         unique=True,
         help_text="Cash flow type name",
+        db_index=True,
     )
 
     class Meta:
