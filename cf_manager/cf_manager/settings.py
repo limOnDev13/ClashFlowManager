@@ -80,12 +80,36 @@ WSGI_APPLICATION = 'cf_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": (
+                os.getenv("POSTGRES_DB", "db")
+                if not DEBUG
+                else os.getenv("POSTGRES_TEST_DB", "test_db")
+            ),
+            "USER": os.getenv("POSTGRES_USER", "user"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
+            "HOST": (
+                os.getenv("POSTGRES_HOST", "postgres")
+                if not DEBUG
+                else os.getenv("POSTGRES_TEST_HOST", "localhost")
+            ),
+            "PORT": (
+                os.getenv("POSTGRES_PORT", 5432)
+                if not DEBUG
+                else os.getenv("POSTGRES_TEST_PORT", 5432)
+            ),
+        }
+    }
 
 
 # Password validation
@@ -141,8 +165,11 @@ REST_FRAMEWORK = {
 CACHE_TIMEOUT = int(os.getenv("DJANGO_CACHE_TIMEOUT", 300))
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": os.getenv("REDIS_DEBUG_URL") if DEBUG else os.getenv("REDIS_URL"),
         "TIMEOUT": CACHE_TIMEOUT,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
     }
 }
