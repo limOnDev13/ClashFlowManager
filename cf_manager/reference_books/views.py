@@ -46,7 +46,7 @@ class SubcategoryViewSet(ModelViewSet):
         "query parameter to filter subcategories by category."
     )
     def list(self, request, *args, **kwargs):
-        super().list(request, *args, **kwargs)
+        return super().list(request, *args, **kwargs)
 
     def get_queryset(self):
         """Return subcategories by category_id, if category_id is query params."""
