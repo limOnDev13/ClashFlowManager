@@ -15,10 +15,16 @@ class CashFlow(models.Model):
         db_index=True,
     )
     status: Status = models.ForeignKey(
-        Status, on_delete=models.CASCADE, null=False, db_index=True,
+        Status,
+        on_delete=models.CASCADE,
+        null=False,
+        db_index=True,
     )
     subcategory: Subcategory = models.ForeignKey(
-        Subcategory, on_delete=models.CASCADE, null=False, db_index=True,
+        Subcategory,
+        on_delete=models.CASCADE,
+        null=False,
+        db_index=True,
     )
     amount: Decimal = models.DecimalField(
         max_digits=8,
